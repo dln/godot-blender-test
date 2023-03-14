@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c36ayanir0rcu"]
+[gd_scene load_steps=7 format=3 uid="uid://c36ayanir0rcu"]
 
 [ext_resource type="PackedScene" uid="uid://2sgv3b7ilcof" path="res://sten1.glb" id="1_26evr"]
 
@@ -17,6 +17,49 @@ volumetric_fog_density = 0.0337
 
 [sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_rfmpv"]
 
+[sub_resource type="Animation" id="Animation_n80xi"]
+resource_name = "move"
+length = 6.0
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(),
+"points": PackedFloat32Array(),
+"times": PackedFloat32Array()
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 3.142, -0.25, 0, 0.25, 0, 6.283, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 3, 6)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:rotation:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(),
+"points": PackedFloat32Array(),
+"times": PackedFloat32Array()
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j6p2p"]
+_data = {
+"move": SubResource("Animation_n80xi")
+}
+
 [sub_resource type="BoxMesh" id="BoxMesh_fce45"]
 
 [node name="ZenGarden" type="Node3D"]
@@ -31,11 +74,20 @@ environment = SubResource("Environment_twj4v")
 camera_attributes = SubResource("CameraAttributesPhysical_rfmpv")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.930916, 0.365234, 0, -0.365234, -0.930916, 0.22101, 0.961567, -1.5613)
+process_mode = 3
+transform = Transform3D(-0.282565, 0, 0.959248, 0, 1, 0, -0.959248, 0, -0.282565, -1.44609, 0.961567, -1.7571)
 shadow_enabled = true
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DirectionalLight3D"]
+process_mode = 3
+autoplay = "move"
+playback_process_mode = 0
+libraries = {
+"": SubResource("AnimationLibrary_j6p2p")
+}
+
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(10, 0, 0, 0, 0.1, 0, 0, 0, 10, 0, -0.05, 0)
+transform = Transform3D(10, 0, 0, 0, 0.1, 0, 0, 0, 10, 0.243868, 0.0252054, -0.46633)
 mesh = SubResource("BoxMesh_fce45")
 
 [node name="Camera3D" type="Camera3D" parent="."]
