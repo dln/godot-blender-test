@@ -1,26 +1,30 @@
-[gd_scene load_steps=9 format=3 uid="uid://c36ayanir0rcu"]
+[gd_scene load_steps=11 format=3 uid="uid://c36ayanir0rcu"]
 
 [ext_resource type="PackedScene" uid="uid://2sgv3b7ilcof" path="res://sten1.glb" id="1_26evr"]
 [ext_resource type="PackedScene" uid="uid://dsiwaskxhvmpo" path="res://player.tscn" id="2_jii7n"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3ppp5"]
-radius = 0.4
-height = 1.0
-
 [sub_resource type="Environment" id="Environment_twj4v"]
 background_mode = 1
 background_color = Color(0.278431, 0.188235, 0.215686, 1)
+ssr_enabled = true
 ssao_enabled = true
+ssao_radius = 7.62
 ssao_intensity = 3.32
-ssao_power = 1.06066
+ssao_power = 0.337969
 ssil_enabled = true
+ssil_intensity = 1.92
 sdfgi_enabled = true
 sdfgi_use_occlusion = true
+sdfgi_cascades = 6
 glow_enabled = true
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.0337
 
 [sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_rfmpv"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3ppp5"]
+radius = 0.4
+height = 1.0
 
 [sub_resource type="Animation" id="Animation_n80xi"]
 resource_name = "move"
@@ -65,26 +69,38 @@ _data = {
 "move": SubResource("Animation_n80xi")
 }
 
-[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_bu3rf"]
-albedo_color = Color(0.941176, 0.886275, 0.741176, 1)
+[sub_resource type="BoxShape3D" id="BoxShape3D_2xuv3"]
+size = Vector3(10, 0.5, 10)
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_x2dgj"]
+albedo_color = Color(0.870588, 0.870588, 0.831373, 1)
+emission_enabled = true
+emission = Color(0.694118, 0.584314, 0.733333, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_v0mul"]
+size = Vector3(10, 0.5, 10)
 
 [node name="ZenGarden" type="Node3D"]
-
-[node name="Sten" type="StaticBody3D" parent="."]
-
-[node name="sten1" parent="Sten" instance=ExtResource("1_26evr")]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sten"]
-shape = SubResource("CapsuleShape3D_3ppp5")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_twj4v")
 camera_attributes = SubResource("CameraAttributesPhysical_rfmpv")
 
+[node name="Sten" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0562196, 0)
+
+[node name="sten1" parent="Sten" instance=ExtResource("1_26evr")]
+process_mode = 3
+transform = Transform3D(-0.95658, -0.29147, 0, 0.29147, -0.95658, 0, 0, 0, 1, 0, 0.109929, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sten"]
+shape = SubResource("CapsuleShape3D_3ppp5")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 process_mode = 3
-transform = Transform3D(0.900856, 0, -0.434118, 0, 1, 0, 0.434118, 0, 0.900856, -1.44609, 0.961567, -1.7571)
+transform = Transform3D(1, 0, 0, 0, 0.734465, 0.678647, 0, -0.678647, 0.734465, -1.59845, 3.37781, -1.35784)
 shadow_enabled = true
+shadow_blur = 3.08
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="DirectionalLight3D"]
 process_mode = 3
@@ -97,8 +113,14 @@ libraries = {
 [node name="Player" parent="." instance=ExtResource("2_jii7n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.12846)
 
-[node name="Ground" type="CSGBox3D" parent="."]
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.494214, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-use_collision = true
-size = Vector3(10, 0.5, 10)
-material = SubResource("ORMMaterial3D_bu3rf")
+shape = SubResource("BoxShape3D_2xuv3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+material_override = SubResource("ORMMaterial3D_x2dgj")
+cast_shadow = 0
+mesh = SubResource("BoxMesh_v0mul")
