@@ -88,7 +88,7 @@ environment = SubResource("Environment_twj4v")
 camera_attributes = SubResource("CameraAttributesPhysical_rfmpv")
 
 [node name="Sten" type="StaticBody3D" parent="."]
-transform = Transform3D(0.737774, -1.7944, -0.485611, 1.84969, 0.656539, 0.384181, -0.185276, -0.590835, 1.90173, 0, 0.155769, 0)
+transform = Transform3D(0.0119598, -0.530305, -1.92838, -0.831546, 1.7525, -0.487097, 1.8189, 0.80468, -0.210007, 0, 0.155769, 0)
 
 [node name="sten2" parent="Sten" instance=ExtResource("1_yu13k")]
 
