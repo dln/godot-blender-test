@@ -1,6 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://c36ayanir0rcu"]
+[gd_scene load_steps=9 format=3 uid="uid://c36ayanir0rcu"]
 
 [ext_resource type="PackedScene" uid="uid://2sgv3b7ilcof" path="res://sten1.glb" id="1_26evr"]
+[ext_resource type="PackedScene" uid="uid://dsiwaskxhvmpo" path="res://player.tscn" id="2_jii7n"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3ppp5"]
+radius = 0.4
+height = 1.0
 
 [sub_resource type="Environment" id="Environment_twj4v"]
 background_mode = 1
@@ -60,14 +65,17 @@ _data = {
 "move": SubResource("Animation_n80xi")
 }
 
-[sub_resource type="BoxMesh" id="BoxMesh_fce45"]
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_bu3rf"]
+albedo_color = Color(0.941176, 0.886275, 0.741176, 1)
 
 [node name="ZenGarden" type="Node3D"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Sten" type="StaticBody3D" parent="."]
 
-[node name="sten1" parent="MeshInstance3D" instance=ExtResource("1_26evr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.317941, 0)
+[node name="sten1" parent="Sten" instance=ExtResource("1_26evr")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sten"]
+shape = SubResource("CapsuleShape3D_3ppp5")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_twj4v")
@@ -75,7 +83,7 @@ camera_attributes = SubResource("CameraAttributesPhysical_rfmpv")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 process_mode = 3
-transform = Transform3D(-0.282565, 0, 0.959248, 0, 1, 0, -0.959248, 0, -0.282565, -1.44609, 0.961567, -1.7571)
+transform = Transform3D(0.900856, 0, -0.434118, 0, 1, 0, 0.434118, 0, 0.900856, -1.44609, 0.961567, -1.7571)
 shadow_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="DirectionalLight3D"]
@@ -86,10 +94,11 @@ libraries = {
 "": SubResource("AnimationLibrary_j6p2p")
 }
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(10, 0, 0, 0, 0.1, 0, 0, 0, 10, 0.243868, 0.0252054, -0.46633)
-mesh = SubResource("BoxMesh_fce45")
+[node name="Player" parent="." instance=ExtResource("2_jii7n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.12846)
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-0.668154, 0.0653187, -0.74115, -0.0687169, 0.986464, 0.148888, 0.740843, 0.150409, -0.654621, -1.2929, 0.803353, -1.30144)
-fov = 59.7545
+[node name="Ground" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+size = Vector3(10, 0.5, 10)
+material = SubResource("ORMMaterial3D_bu3rf")
