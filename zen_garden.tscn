@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://c36ayanir0rcu"]
 
-[ext_resource type="PackedScene" uid="uid://2sgv3b7ilcof" path="res://sten1.glb" id="1_26evr"]
+[ext_resource type="PackedScene" uid="uid://ctxymw4uj3qcu" path="res://sten1.blend" id="1_yu13k"]
 [ext_resource type="PackedScene" uid="uid://dsiwaskxhvmpo" path="res://player.tscn" id="2_jii7n"]
 
 [sub_resource type="Environment" id="Environment_twj4v"]
@@ -76,6 +76,7 @@ size = Vector3(10, 0.5, 10)
 albedo_color = Color(0.870588, 0.870588, 0.831373, 1)
 emission_enabled = true
 emission = Color(0.694118, 0.584314, 0.733333, 1)
+emission_energy_multiplier = 0.11
 
 [sub_resource type="BoxMesh" id="BoxMesh_v0mul"]
 size = Vector3(10, 0.5, 10)
@@ -87,11 +88,9 @@ environment = SubResource("Environment_twj4v")
 camera_attributes = SubResource("CameraAttributesPhysical_rfmpv")
 
 [node name="Sten" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0562196, 0)
+transform = Transform3D(0.737774, -1.7944, -0.485611, 1.84969, 0.656539, 0.384181, -0.185276, -0.590835, 1.90173, 0, 0.155769, 0)
 
-[node name="sten1" parent="Sten" instance=ExtResource("1_26evr")]
-process_mode = 3
-transform = Transform3D(-0.95658, -0.29147, 0, 0.29147, -0.95658, 0, 0, 0, 1, 0, 0.109929, 0)
+[node name="sten2" parent="Sten" instance=ExtResource("1_yu13k")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sten"]
 shape = SubResource("CapsuleShape3D_3ppp5")
