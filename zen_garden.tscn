@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://c36ayanir0rcu"]
+
+[ext_resource type="PackedScene" uid="uid://2sgv3b7ilcof" path="res://sten1.glb" id="1_26evr"]
+
+[sub_resource type="Environment" id="Environment_twj4v"]
+background_mode = 1
+background_color = Color(0.278431, 0.188235, 0.215686, 1)
+ssao_enabled = true
+ssao_intensity = 3.32
+ssao_power = 1.06066
+ssil_enabled = true
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0337
+
+[sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_rfmpv"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_fce45"]
+
+[node name="ZenGarden" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+
+[node name="sten1" parent="MeshInstance3D" instance=ExtResource("1_26evr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.317941, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_twj4v")
+camera_attributes = SubResource("CameraAttributesPhysical_rfmpv")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.930916, 0.365234, 0, -0.365234, -0.930916, 0.22101, 0.961567, -1.5613)
+shadow_enabled = true
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 0.1, 0, 0, 0, 10, 0, -0.05, 0)
+mesh = SubResource("BoxMesh_fce45")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.668154, 0.0653187, -0.74115, -0.0687169, 0.986464, 0.148888, 0.740843, 0.150409, -0.654621, -1.2929, 0.803353, -1.30144)
+fov = 59.7545
