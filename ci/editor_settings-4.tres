@@ -1,0 +1,5 @@
+[gd_resource type="EditorSettings" format=3]
+
+[resource]
+filesystem/import/blender/blender3_path = "/usr/bin"
+

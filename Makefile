@@ -12,3 +12,14 @@ windows:
 
 clean:
 	rm -rf ./build/*
+
+ci-image:
+	podman build -t godot-builder ci/
+
+run-ci-image: 
+	podman run -it --rm -v $(shell pwd):/work godot-builder
+
+import:
+	godot --headless --editor --quit
+
+ci: clean import all
